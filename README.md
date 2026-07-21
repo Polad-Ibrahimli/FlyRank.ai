@@ -1,45 +1,75 @@
-# Capstone Project
+# React + TypeScript + Vite
 
-> Frontend AI Engineering Internship — Foundation Track, Setup Phase
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## What this is
+Currently, two official plugins are available:
 
-Starter repo for my capstone project, built as part of the Frontend AI Engineering
-internship. This project focuses on frontend engineering with AI-assisted
-development workflows (Cursor) as a core part of the process.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Status
+## React Compiler
 
-🚧 Setup phase — toolchain and repo scaffolding in progress. Project scope and
-features will be added as the capstone develops.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
+## Expanding the ESLint configuration
 
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## Getting started
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-```bash
-git clone <this-repo-url>
-cd <repo-name>
-npm install
-npm run dev
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
 ```
 
-## Project structure
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 
 ```
-.
-├── .cursor/rules/   # Cursor AI rules (stack + conventions)
-├── src/             # Application source
-├── .gitignore
-├── LICENSE
-└── README.md
-```
-
-## Conventions
-
-- Commits follow [Conventional Commits](https://www.conventionalcommits.org/).
-- See `.cursor/rules/project.mdc` for AI-assistant conventions used in this repo.
-
-## License
-
-MIT — see [LICENSE](./LICENSE).

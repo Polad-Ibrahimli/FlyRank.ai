@@ -1,0 +1,38 @@
+---
+description: Project stack and conventions for AI-assisted development
+alwaysApply: true
+---
+
+# Project Conventions
+
+## Stack
+
+- TypeScript, React, Vite
+- Tailwind CSS for styling
+- ESLint + Prettier for linting/formatting
+- npm as the package manager
+
+## Coding conventions
+
+- Prefer functional components and hooks over class components.
+- Keep components small and colocate related files (component + styles + test)
+  under `src/components/<ComponentName>/`.
+- Use named exports, not default exports, except for page-level components.
+- Type all component props explicitly; avoid `any`.
+- Prefer Tailwind utility classes over custom CSS unless a pattern repeats 3+
+  times, in which case extract a component or a `@apply` class.
+
+## Git conventions
+
+- All commits follow [Conventional Commits](https://www.conventionalcommits.org/):
+  `type(scope): short description`
+  - Common types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`
+  - Example: `feat(setup): add project scaffolding and tooling`
+- Keep commits scoped to a single logical change.
+
+## AI assistant behavior
+
+- When asked to critique a file, give concrete, actionable feedback (not just
+  praise) and prefer the smallest change that meaningfully improves it.
+- Ask before adding new dependencies.
+- Match the existing code style rather than introducing a new pattern.
